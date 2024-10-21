@@ -88,8 +88,8 @@ async function acessar() {
     console.log(ref);
 }
 
-criar();
+// criar();
 
-acessar();
+// acessar();
 
 module.exports = { test1, test2 }
