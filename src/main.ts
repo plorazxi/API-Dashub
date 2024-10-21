@@ -1,5 +1,5 @@
 import express from "express";
-import { mandar } from "./test.js";
+import { test1, test2 } from "./test.js";
 require('dotenv').config();
 
 const env = process.env;
@@ -7,10 +7,15 @@ const app = express();
 
 app.use(express.json());
 
-app.get('/test', async (req, res) => {
-    console.log(await mandar());
-    res.send(await mandar());
-})
+app.get('/test1', async (req, res) => {
+    console.log(await test1());
+    res.send(await test1());
+});
+
+app.get('/test2', async (req, res) => {
+    console.log(await test2());
+    res.send(await test2());
+});
 
 app.get('/', (req, res) => {
     res.send('rota principal');

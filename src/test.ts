@@ -2,7 +2,7 @@ import { Prisma, PrismaClient } from "@prisma/client";
 
 const prismaaa = new PrismaClient;
 
-async function acessar() {
+async function criar() {
     await prismaaa.user.create({
         data: {
             nome: "Paulo",
@@ -33,7 +33,7 @@ async function acessar() {
     })
 }
 
-export async function mandar() {
+export async function test1() {
     return await prismaaa.grafico.findMany({
         include: {
             dados: true,
@@ -41,6 +41,42 @@ export async function mandar() {
     })
 }
 
-mandar()
+interface ObjRespo {
+    id: string
+    nome: string
+    tipo: string
+    dashboardId: string
+    elementos: string[]
+    dados: number[]
+    cores: string[]
+}
 
-module.exports = { mandar }
+export async function test2() {
+    let grafico = (await prismaaa.grafico.findMany())[0];
+    let ref = await prismaaa.dado.findMany({
+        where: {
+            graficoId: grafico.id
+        }
+    });
+    let elementos = ref.map((obj) => {
+        return obj.nome;
+    });
+    let dado = ref.map((obj) => {
+        return obj.valor;
+    });
+    let cores = ref.map((obj) => {
+        return obj.cor;
+    });
+    let resposta: ObjRespo = {
+        id: grafico.id,
+        nome: grafico.nome,
+        tipo: grafico.tipo,
+        dashboardId: grafico.dashbardId,
+        elementos: elementos,
+        dados: dado,
+        cores: cores
+    };
+    return resposta;
+}
+
+module.exports = { test1, test2 }
