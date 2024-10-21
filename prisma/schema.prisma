@@ -28,23 +28,23 @@ model Dashboard {
 }
 
 model Grafico {
-  id         String    @id @default(uuid())
-  tipo       String
-  nome       String
-  dashboard  Dashboard @relation(fields: [dashbardId], references: [id])
-  dashbardId String
-  dados      Dado[]
+  id          String       @id @default(uuid())
+  tipo        String
+  nome        String
+  dashboard   Dashboard    @relation(fields: [dashbardId], references: [id])
+  dashbardId  String
+  referencias Referencia[]
 
   @@map("graficos")
 }
 
-model Dado {
-  id        String   @id @default(uuid())
+model Referencia {
+  id        String  @id @default(uuid())
   nome      String
   valor     Int
   cor       String
   Grafico   Grafico @relation(fields: [graficoId], references: [id])
   graficoId String
 
-  @@map("dados")
+  @@map("referencias")
 }

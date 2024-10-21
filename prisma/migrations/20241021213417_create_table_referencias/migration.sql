@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE `dados` (
+CREATE TABLE `referencias` (
     `id` VARCHAR(191) NOT NULL,
     `nome` VARCHAR(191) NOT NULL,
     `valor` INTEGER NOT NULL,
@@ -10,4 +10,4 @@ CREATE TABLE `dados` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `dados` ADD CONSTRAINT `dados_graficoId_fkey` FOREIGN KEY (`graficoId`) REFERENCES `graficos`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `referencias` ADD CONSTRAINT `referencias_graficoId_fkey` FOREIGN KEY (`graficoId`) REFERENCES `graficos`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
