@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String      @id @default(uuid())
+  nome      String
+  email     String      @unique
+  senha     String
+  dashboard Dashboard[]
+
+  @@map("users")
+}
+
+model Dashboard {
+  id       String    @id @default(uuid())
+  nome     String
+  user     User      @relation(fields: [userid], references: [id])
+  userid   String
+  graficos Grafico[]
+
+  @@map("dashboards")
+}
+
+model Grafico {
+  id         String    @id @default(uuid())
+  tipo       String
+  nome       String
+  dashboard  Dashboard @relation(fields: [dashbardId], references: [id])
+  dashbardId String
+  dados      Dado[]
+
+  @@map("graficos")
+}
+
+model Dado {
+  id        String   @id @default(uuid())
+  nome      String
+  valor     Int
+  cor       String
+  Grafico   Grafico @relation(fields: [graficoId], references: [id])
+  graficoId String
+
+  @@map("dados")
+}
