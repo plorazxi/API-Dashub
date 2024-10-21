@@ -79,4 +79,17 @@ export async function test2() {
     return resposta;
 }
 
+async function acessar() {
+    let ref = await prismaaa.user.findUnique({
+        where: {
+            email: 'paul.ss.loraschi@gmail.com'
+        }
+    });
+    console.log(ref);
+}
+
+criar();
+
+acessar();
+
 module.exports = { test1, test2 }
