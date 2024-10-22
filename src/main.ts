@@ -1,15 +1,18 @@
 import express from "express";
-require('dotenv').config();
+import { ENV } from "./env";
+const auth = require('./routes/auth');
 
-const env = process.env;
 const app = express();
 
 app.use(express.json());
+
+// rotas auth
+app.use('/auth', auth);
 
 app.get('/', (req, res) => {
     res.send('rota principal');
 });
 
-app.listen(env.PORT, () => {
+app.listen( ENV.PORT, () => {
     console.log('server on');
 });
