@@ -3,13 +3,11 @@
   "version": "1.0.0",
   "main": "build/main.js",
   "scripts": {
-    "dev": "tsx watch --env-file .env src/main.ts",
+    "dev": "tsx watch --env-file=.env src/main.ts",
     "do-migration": "npx prisma migrate dev",
-
     "migrate": "npx prisma migrate",
     "build": "tsc",
-    
-    "start": "node --env-file .env build/main.js"
+    "start": "node build/main.js"
   },
   "keywords": [],
   "author": "Paulo Loraschi",
