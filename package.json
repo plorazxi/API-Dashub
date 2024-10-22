@@ -3,12 +3,10 @@
   "version": "1.0.0",
   "main": "build/main.js",
   "scripts": {
-    "dev": "tsx watch src/main.ts",
+    "dev": "tsx watch --env-file=.env src/main.ts",
     "do-migration": "npx prisma migrate dev",
-
     "migrate": "npx prisma migrate",
     "build": "tsc",
-    
     "start": "node build/main.js"
   },
   "keywords": [],
@@ -16,7 +14,9 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.7.7",
     "prisma": "^5.21.1",
     "tsx": "^4.19.1",
@@ -24,7 +24,9 @@
   },
   "dependencies": {
     "@prisma/client": "^5.21.1",
-    "dotenv": "^16.4.5",
-    "express": "^4.21.1"
+    "bcrypt": "^5.1.1",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "zod": "^3.23.8"
   }
 }
