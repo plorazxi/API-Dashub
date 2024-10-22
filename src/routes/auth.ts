@@ -1,5 +1,5 @@
 import express from "express";
-import { User } from "../interfaces/user";
+import { loginSchema, NewUser } from "../interfaces/user";
 import { hash } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
@@ -20,7 +20,7 @@ router.post('/register', async (req, res) => {
         res.status(401).send({msg: "email sendo utilizado"});
         return ;
     }
-    let user: User = {
+    let user: NewUser = {
         nome: nome,
         email: email, 
         senha: await hash(senha, randomInt(10, 16))
