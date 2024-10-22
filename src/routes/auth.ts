@@ -1,6 +1,6 @@
 import express from "express";
 import { loginSchema, NewUser } from "../interfaces/user";
-import { hash } from "bcrypt";
+import { compare, hash } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
 import { randomInt } from "crypto";
@@ -35,6 +35,7 @@ router.post('/register', async (req, res) => {
     res.send({
         msg: "usuario criado com sucesso",
         nome: userDB.nome,
+        email: userDB.email,
         token: jwt
     });
 });
@@ -56,7 +57,20 @@ router.post('/login', async (req, res) => {
         res.status(404).send({ msg: "Usuário não encontrado" });
         return ;
     }
-    res.send(user);
+    if(await compare(requisicao.senha, user.senha)) {
+        let token = sign(user, ENV.SECRETKEY, {
+            algorithm: 'HS256',
+            expiresIn: '1h'
+        });
+        res.send({
+            msg: "login efetuado com sucesso",
+            nome: user.nome,
+            email: user.email,
+            token: token
+        });
+    } else {
+        res.status(401).send({msg: "Senha incorreta"});
+    }
 });
 
 module.exports = router;
