@@ -39,4 +39,24 @@ router.post('/register', async (req, res) => {
     });
 });
 
+router.post('/login', async (req, res) => {
+    let requisicao;
+    try {
+        requisicao = loginSchema.parse(req.body);
+    } catch(e) {
+        res.status(400).send({msg: "requisição mal feita"});
+        return ;
+    }
+    let user = await prisma.user.findUnique({
+        where: {
+            email: requisicao.email
+        }
+    });
+    if(!user) {
+        res.status(404).send({ msg: "Usuário não encontrado" });
+        return ;
+    }
+    res.send(user);
+});
+
 module.exports = router;
