@@ -25,3 +25,13 @@ Content-Type: application/json
     "email": "paulo.ss.loraschi@gmail.com",
     "senha": "1234"
 }
+
+### Função mudar nome
+PUT http://localhost:3000/auth/mudar-nome
+Content-Type: application/json
+
+{
+    "email": "paulo.ss.loraschi@gmail.com",
+    "nome": "paulinho",
+    "senha": "123"
+}
