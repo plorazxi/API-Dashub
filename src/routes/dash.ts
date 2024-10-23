@@ -7,7 +7,7 @@ import { user_tokenSchema } from "../interfaces/dashInterface";
 const router = express.Router();
 const prisma = new PrismaClient;
 
-router.get('/:token', (req, res) => {
+router.get('/:token', async (req, res) => {
     const token: string = req.params.token;
     let ver_token: object | null | void = verify(token, ENV.SECRETKEY, (err, decoded) => {
         if (err) {
@@ -19,13 +19,10 @@ router.get('/:token', (req, res) => {
         return ;
     }
     let user = user_tokenSchema.parse(ver_token);
-    let dashboards = prisma.dashboard.findMany({
+    let dashboards = await prisma.dashboard.findMany({
         where: {
             userid: user.id
         },
-        include: {
-            graficos: true
-        }
     });
     res.send(dashboards);
 });
