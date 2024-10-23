@@ -17,9 +17,16 @@ export type login = z.infer<typeof loginSchema>;
 
 export const NovoNomeSchema = z.object({
     email: z.string().email(),
-    email_novo: z.string().email(),
     senha: z.string(),
     nome: z.string()
 });
 
 export type NovoNome = z.infer<typeof NovoNomeSchema>;
+
+export const NovoEmailSchema = z.object({
+    email: z.string().email(),
+    email_novo: z.string().email(),
+    senha: z.string()
+});
+
+export type NovoEmail = z.infer<typeof NovoEmailSchema>;

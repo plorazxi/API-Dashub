@@ -1,11 +1,10 @@
 import express from "express";
-import { login, loginSchema, NewUser, NewUserSchema, NovoNome, NovoNomeSchema } from "../interfaces/authInterface";
+import { login, loginSchema, NewUser, NovoEmail, NovoEmailSchema, NovoNome, NovoNomeSchema } from "../interfaces/authInterface";
 import { compare, hash } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
 import { randomInt } from "crypto";
 import { ENV } from "../env";
-import { cachedDataVersionTag } from "v8";
 
 const router = express.Router();
 const prisma = new PrismaClient;
@@ -120,6 +119,40 @@ router.put('/mudar-nome', async (req, res) => {
             }
         });
         res.send({msg: "nome alterado com sucesso"});
+        return ;
+    } else {
+        res.status(401).send({msg: "senha incorreta"});
+        return ;
+    }
+});
+
+router.put('/mudar-email', async (req, res) => {
+    let requisicao: NovoEmail;
+    try{
+        requisicao = NovoEmailSchema.parse(req.body);
+    } catch(e) {
+        res.status(400).send({msg: "requisição mal feita"});
+        return ;
+    }
+    let user = await prisma.user.findUnique({
+        where: {
+            email: requisicao.email
+        }
+    });
+    if(!user) {
+        res.status(404).send({msg: "usuario não encontrado"});
+        return ;
+    }
+    if(await compare(requisicao.senha, user.senha)) {
+        await prisma.user.update({
+            where: {
+                id: user.id
+            },
+            data: {
+                email: requisicao.email_novo
+            }
+        });
+        res.send({msg: "email alterado com sucesso"});
         return ;
     } else {
         res.status(401).send({msg: "senha incorreta"});
