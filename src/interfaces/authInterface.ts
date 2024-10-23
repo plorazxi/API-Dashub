@@ -10,3 +10,4 @@ export const loginSchema = z.object({
     email: z.string().email(),
     senha: z.string()
 });
+

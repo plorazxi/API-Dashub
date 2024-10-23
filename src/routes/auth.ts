@@ -1,10 +1,11 @@
 import express from "express";
-import { loginSchema, NewUser } from "../interfaces/user";
+import { loginSchema, NewUser } from "../interfaces/authInterface";
 import { compare, hash } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
 import { randomInt } from "crypto";
 import { ENV } from "../env";
+import { cachedDataVersionTag } from "v8";
 
 const router = express.Router();
 const prisma = new PrismaClient;
@@ -72,5 +73,24 @@ router.post('/login', async (req, res) => {
         res.status(401).send({msg: "Senha incorreta"});
     }
 });
+
+router.put('/esqueci-senha', async (req, res) => {
+    let requisicao;
+    try {
+        requisicao = loginSchema.parse(req.body);
+    } catch(e) {
+        res.status(400).send({msg: "requisição mal feita"});
+        return ;
+    }
+    await prisma.user.update({
+        where: {
+            email: requisicao.email
+        },
+        data: {
+            senha: await hash(requisicao.senha, randomInt(10, 16))
+        }
+    });
+    res.send({msg: "senha alterada com sucesso"});
+})
 
 module.exports = router;

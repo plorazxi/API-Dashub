@@ -13,6 +13,15 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "email": "paulo.ss.loraschigmail.com",
+    "email": "paulo.ss.loraschi@gmail.com",
     "senha": "123"
+}
+
+### Função esqueci-senha
+PUT http://localhost:3000/auth/esqueci-senha
+Content-Type: application/json
+
+{
+    "email": "paulo.ss.loraschi@gmail.com",
+    "senha": "1234"
 }
