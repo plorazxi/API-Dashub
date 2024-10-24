@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import express from "express"
-import { grafico, ReqGet, ReqGetSchema, ReqNewGraph, ReqNewGraphSchema } from "../interfaces/graphInterface";
+import { DeleteGraph, DeleteGraphSchema, grafico, ReqGet, ReqGetSchema, ReqNewGraph, ReqNewGraphSchema } from "../interfaces/graphInterface";
 import { verify } from "jsonwebtoken";
 import { ENV } from "../env";
 
@@ -95,6 +95,36 @@ router.post('/create', async (req, res) => {
         });
     }
     res.send({msg: "tabela  criada com sucesso!"});
+});
+
+router.delete('/delete', async (req, res) => {
+    let request: DeleteGraph;
+    try {
+        request = DeleteGraphSchema.parse(req.body);
+    } catch(e) {
+        res.status(400).send({msg: "Requisição mal feita"});
+        return ;
+    }
+    let ver_token: object | null | void = verify(request.token, ENV.SECRETKEY, (err, decoded) => {
+        if (err) {
+            res.status(401).send({ msg: "token inválido" });
+            return null;
+        } else return decoded;
+    });
+    if(ver_token === null) {
+        return ;
+    }
+    await prisma.grafico.delete({
+        where: {
+            id: request.id
+        }
+    });
+    await prisma.referencia.deleteMany({
+        where: {
+            graficoId: request.id
+        }
+    });
+    res.send({msg: "Exclusão realizada com sucesso"});
 });
 
 module.exports = router;

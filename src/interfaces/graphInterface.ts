@@ -31,3 +31,10 @@ export const ReqNewGraphSchema = z.object({
 });
 
 export type ReqNewGraph = z.infer<typeof ReqNewGraphSchema>;
+
+export const DeleteGraphSchema = z.object({
+    id: z.string(),
+    token: z.string()
+});
+
+export type DeleteGraph = z.infer<typeof DeleteGraphSchema>;
