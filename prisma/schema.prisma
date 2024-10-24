@@ -31,6 +31,7 @@ model Grafico {
   id          String       @id @default(uuid())
   tipo        String
   nome        String
+  ordem       String
   dashboard   Dashboard    @relation(fields: [dashbardId], references: [id])
   dashbardId  String
   referencias Referencia[]
