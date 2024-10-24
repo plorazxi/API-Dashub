@@ -32,8 +32,8 @@ model Grafico {
   tipo        String
   nome        String
   ordem       String
-  dashboard   Dashboard    @relation(fields: [dashbardId], references: [id])
-  dashbardId  String
+  dashboard   Dashboard    @relation(fields: [dashboardId], references: [id])
+  dashboardId  String
   referencias Referencia[]
 
   @@map("graficos")
