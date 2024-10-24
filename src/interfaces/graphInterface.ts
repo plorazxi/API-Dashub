@@ -18,3 +18,16 @@ export const GraficoSchema = z.object({
 });
 
 export type grafico = z.infer<typeof GraficoSchema>;
+
+export const ReqNewGraphSchema = z.object({
+    nome: z.string(),
+    tipo: z.string(),
+    ordem: z.string(),
+    atributos: z.string().array(),
+    valores: z.number().array(),
+    cores: z.string().array(),
+    dashId: z.string(),
+    token: z.string()
+});
+
+export type ReqNewGraph = z.infer<typeof ReqNewGraphSchema>;

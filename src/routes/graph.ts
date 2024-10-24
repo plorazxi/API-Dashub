@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import express from "express"
-import { grafico, ReqGet, ReqGetSchema } from "../interfaces/graphInterface";
+import { grafico, ReqGet, ReqGetSchema, ReqNewGraph, ReqNewGraphSchema } from "../interfaces/graphInterface";
 import { verify } from "jsonwebtoken";
 import { ENV } from "../env";
 
@@ -57,6 +57,44 @@ router.get('/', async (req, res) => {
         response.push(graph);
     });
     res.send(response);
+});
+
+router.post('/create', async (req, res) => {
+    let request: ReqNewGraph;
+    try {
+        request = ReqNewGraphSchema.parse(req.body);
+    } catch(e) {
+        res.status(400).send({msg: "Requisição mal feita"});
+        return ;
+    }
+    let ver_token: object | null | void = verify(request.token, ENV.SECRETKEY, (err, decoded) => {
+        if (err) {
+            res.status(401).send({ msg: "token inválido" });
+            return null;
+        } else return decoded;
+    });
+    if(ver_token === null) {
+        return ;
+    }
+    let graph = await prisma.grafico.create({
+        data: {
+            nome: request.nome,
+            ordem: request.ordem,
+            tipo: request.tipo,
+            dashbardId: request.dashId
+        }
+    });
+    for(let i=0; i<request.valores.length; i++) {
+        await prisma.referencia.create({
+            data: {
+                nome: request.nome[i],
+                valor: request.valores[i],
+                cor: request.cores[i],
+                graficoId: graph.id
+            }
+        });
+    }
+    res.send({msg: "tabela  criada com sucesso!"});
 });
 
 module.exports = router;

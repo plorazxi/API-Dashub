@@ -6,3 +6,18 @@ Content-Type: application/json
     "dashId": "",
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE4N2UxZGNiLWI1MTEtNGRhZS04Yjg3LTY0Y2JjYzJiNjNkMCIsIm5vbWUiOiJwYXVsaW5obyIsImVtYWlsIjoicGF1bG8uc3MubG9yYXNjaGlAZ21haWwuY29tIiwic2VuaGEiOiIkMmIkMTAkS0IxYUVYWWVIL2dPZldtL1FHajlzT3N4Wi8yU2haY1VTU00wNVlNSG5QWFdQc3puVEU5b3EiLCJpYXQiOjE3Mjk3Mjc0ODl9.urwI7iawrM8_VXmluXZUar6kFIVFN7kA2A3WneQJGfg"
 }
+
+### Rota de create graph
+POST http://localhost:3000/graph/create
+Content-Type: application/json
+
+{
+    "nome": "",
+    "tipo": "",
+    "ordem": "",
+    "atributos": [""],
+    "valores": [""],
+    "cores": [""],
+    "dashId": "",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE4N2UxZGNiLWI1MTEtNGRhZS04Yjg3LTY0Y2JjYzJiNjNkMCIsIm5vbWUiOiJwYXVsaW5obyIsImVtYWlsIjoicGF1bG8uc3MubG9yYXNjaGlAZ21haWwuY29tIiwic2VuaGEiOiIkMmIkMTAkS0IxYUVYWWVIL2dPZldtL1FHajlzT3N4Wi8yU2haY1VTU00wNVlNSG5QWFdQc3puVEU5b3EiLCJpYXQiOjE3Mjk3Mjc0ODl9.urwI7iawrM8_VXmluXZUar6kFIVFN7kA2A3WneQJGfg"
+}
