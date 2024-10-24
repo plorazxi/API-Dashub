@@ -27,7 +27,7 @@ router.get('/', async (req, res) => {
     let response!: grafico[];
     let graphics = await prisma.grafico.findMany({
         where: {
-            dashbardId: request.dashID
+            dashboardId: request.dashID
         }
     });
     graphics.map(async (value) => {
@@ -81,7 +81,7 @@ router.post('/create', async (req, res) => {
             nome: request.nome,
             ordem: request.ordem,
             tipo: request.tipo,
-            dashbardId: request.dashId
+            dashboardId: request.dashId
         }
     });
     for(let i=0; i<request.valores.length; i++) {
@@ -94,7 +94,7 @@ router.post('/create', async (req, res) => {
             }
         });
     }
-    res.send({msg: "tabela  criada com sucesso!"});
+    res.send({msg: "tabela criada com sucesso!"});
 });
 
 router.delete('/delete', async (req, res) => {
