@@ -16,4 +16,9 @@ export const MudarNomeSchema = z.object({
     id: z.string(),
     novo_nome: z.string(),
     token: z.string()
-})
+});
+
+export const ReqDeleteSchema = z.object({
+    id: z.string(),
+    token: z.string()
+});
