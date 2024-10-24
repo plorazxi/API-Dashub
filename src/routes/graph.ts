@@ -119,11 +119,6 @@ router.delete('/delete', async (req, res) => {
             id: request.id
         }
     });
-    await prisma.referencia.deleteMany({
-        where: {
-            graficoId: request.id
-        }
-    });
     res.send({msg: "Exclusão realizada com sucesso"});
 });
 

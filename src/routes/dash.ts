@@ -104,26 +104,6 @@ router.delete('/delete', async (req, res) => {
             id: request.id
         }
     });
-    let graphs = await prisma.grafico.findMany({
-        where: {
-            dashboardId: request.id
-        }
-    });
-    let IDs = graphs.map((value) => {
-        return value.id;
-    });
-    await prisma.grafico.deleteMany({
-        where: {
-            dashboardId: request.id
-        }
-    });
-    await prisma.referencia.deleteMany({
-        where: {
-            graficoId: {
-                in: IDs,
-            }
-        }
-    });
     res.send({msg: "Dashboard deletado com sucesso"});
 });
 
