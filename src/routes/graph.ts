@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import express from "express"
-import { ReqGet, ReqGetSchema } from "../interfaces/graphInterface";
+import { grafico, ReqGet, ReqGetSchema } from "../interfaces/graphInterface";
 
 const router = express.Router();
 const prisma = new PrismaClient;
@@ -13,15 +13,39 @@ router.get('/', async (req, res) => {
         res.status(400).send({msg: "Requisição mal feita"});
         return ;
     }
-    let response: object[];
+    let response!: grafico[];
     let graphics = await prisma.grafico.findMany({
         where: {
             dashbardId: request.dashID
         }
     });
-    graphics.map((value) => {
-        
+    graphics.map(async (value) => {
+        let ref = await prisma.referencia.findMany({
+            where: {
+                graficoId: value.id
+            }
+        });
+        let atributos = ref.map((obj) => {
+            return obj.nome;
+        });
+        let valores = ref.map((obj) => {
+            return obj.valor;
+        });
+        let cores = ref.map((obj) => {
+            return obj.cor;
+        });
+        let graph: grafico = {
+            id: value.id,
+            nome: value.nome,
+            tipo: value.tipo,
+            ordem: value.ordem,
+            atributos: atributos,
+            valores: valores,
+            cores: cores
+        };
+        response.push(graph);
     });
+    res.send(response);
 });
 
 module.exports = router;
