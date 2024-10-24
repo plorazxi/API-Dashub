@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import express from "express";
 import { verify } from "jsonwebtoken";
 import { ENV } from "../env";
-import { MudarNomeSchema, ReqDeleteSchema, ReqNewDashSchema, user_tokenSchema } from "../interfaces/dashInterface";
+import { MudarNome, MudarNomeSchema, ReqDelete, ReqDeleteSchema, ReqNewDash, ReqNewDashSchema, user_tokenSchema } from "../interfaces/dashInterface";
 
 const router = express.Router();
 const prisma = new PrismaClient;
@@ -28,7 +28,13 @@ router.get('/:token', async (req, res) => {
 });
 
 router.post('/create', async (req, res) => {
-    const request = ReqNewDashSchema.parse(req.body);
+    let request: ReqNewDash;
+    try {
+        request = ReqNewDashSchema.parse(req.body);
+    } catch(e) {
+        res.status(400).send({msg: "Requisição mal feita"});
+        return ;
+    }
     let ver_token: object | null | void = verify(request.token, ENV.SECRETKEY, (err, decoded) => {
         if (err) {
             res.status(401).send({ msg: "token inválido" });
@@ -49,7 +55,13 @@ router.post('/create', async (req, res) => {
 });
 
 router.put('/mudar-nome', async (req, res) => {
-    const request = MudarNomeSchema.parse(req.body);
+    let request: MudarNome;
+    try {
+        request = MudarNomeSchema.parse(req.body);
+    } catch(e) {
+        res.status(400).send({msg: "Requisição mal feita"});
+        return ;
+    }
     let ver_token: object | null | void = verify(request.token, ENV.SECRETKEY, (err, decoded) => {
         if (err) {
             res.status(401).send({ msg: "token inválido" });
@@ -71,7 +83,13 @@ router.put('/mudar-nome', async (req, res) => {
 });
 
 router.delete('/delete', async (req, res) => {
-    let request = ReqDeleteSchema.parse(req.body);
+    let request: ReqDelete;
+    try {
+        request = ReqDeleteSchema.parse(req.body);
+    } catch(e) {
+        res.status(400).send({msg: "Requisição mal feita"});
+        return ;
+    }
     let ver_token: object | null | void = verify(request.token, ENV.SECRETKEY, (err, decoded) => {
         if (err) {
             res.status(401).send({ msg: "token inválido" });
