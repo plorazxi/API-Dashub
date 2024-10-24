@@ -12,8 +12,8 @@ export const ReqNewDashSchema = z.object({
     token: z.string()
 });
 
-export const NewDashSchema = z.object({
-    nome: z.string(),
-    userId: z.string(),
-    user: user_tokenSchema
-});
+export const MudarNomeSchema = z.object({
+    id: z.string(),
+    novo_nome: z.string(),
+    token: z.string()
+})

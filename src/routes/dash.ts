@@ -2,8 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import express from "express";
 import { verify } from "jsonwebtoken";
 import { ENV } from "../env";
-import { ReqNewDashSchema, user_tokenSchema } from "../interfaces/dashInterface";
-import { connect } from "http2";
+import { MudarNomeSchema, ReqNewDashSchema, user_tokenSchema } from "../interfaces/dashInterface";
 
 const router = express.Router();
 const prisma = new PrismaClient;
@@ -47,6 +46,29 @@ router.post('/create', async (req, res) => {
         }
     });
     res.send({msg: "Dashboard criado com sucesso"});
+});
+
+router.put('/mudar-nome', async (req, res) => {
+    const request = MudarNomeSchema.parse(req.body);
+    let ver_token: object | null | void = verify(request.token, ENV.SECRETKEY, (err, decoded) => {
+        if (err) {
+            res.status(401).send({ msg: "token inválido" });
+            return null;
+        } else return decoded;
+    });
+    if(ver_token === null) {
+        return ;
+    }
+    let user = user_tokenSchema.parse(ver_token);
+    await prisma.dashboard.update({
+        where: {
+            id: request.id
+        },
+        data: {
+            nome: request.novo_nome
+        }
+    });
+    res.send({msg: "nome alterado com sucesso"});
 });
 
 module.exports = router;

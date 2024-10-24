@@ -9,3 +9,13 @@ Content-Type: application/json
     "nome": "Dashboooard",
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE4N2UxZGNiLWI1MTEtNGRhZS04Yjg3LTY0Y2JjYzJiNjNkMCIsIm5vbWUiOiJwYXVsaW5obyIsImVtYWlsIjoicGF1bG8uc3MubG9yYXNjaGlAZ21haWwuY29tIiwic2VuaGEiOiIkMmIkMTAkS0IxYUVYWWVIL2dPZldtL1FHajlzT3N4Wi8yU2haY1VTU00wNVlNSG5QWFdQc3puVEU5b3EiLCJpYXQiOjE3Mjk3Mjc0ODl9.urwI7iawrM8_VXmluXZUar6kFIVFN7kA2A3WneQJGfg"
 }
+
+### Rota de alterar nome
+PUT http://localhost:3000/dash/mudar-nome
+Content-Type: application/json
+
+{
+    "id": "24492d76-5db6-4d35-9398-d4e309adf1fe",
+    "novo_nome": "testing",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE4N2UxZGNiLWI1MTEtNGRhZS04Yjg3LTY0Y2JjYzJiNjNkMCIsIm5vbWUiOiJwYXVsaW5obyIsImVtYWlsIjoicGF1bG8uc3MubG9yYXNjaGlAZ21haWwuY29tIiwic2VuaGEiOiIkMmIkMTAkS0IxYUVYWWVIL2dPZldtL1FHajlzT3N4Wi8yU2haY1VTU00wNVlNSG5QWFdQc3puVEU5b3EiLCJpYXQiOjE3Mjk3Mjc0ODl9.urwI7iawrM8_VXmluXZUar6kFIVFN7kA2A3WneQJGfg"
+}
