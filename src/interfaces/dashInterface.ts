@@ -1,7 +1,7 @@
 import z from "zod";
 
 export const user_tokenSchema = z.object({
-    id: z.string(),
+    id: z.number(),
     email: z.string().email(),
     nome: z.string(),
     senha: z.string()
@@ -15,7 +15,7 @@ export const ReqNewDashSchema = z.object({
 export type ReqNewDash = z.infer<typeof ReqNewDashSchema>;
 
 export const MudarNomeSchema = z.object({
-    id: z.string(),
+    id: z.number(),
     novo_nome: z.string(),
     token: z.string()
 });
@@ -23,7 +23,7 @@ export const MudarNomeSchema = z.object({
 export type MudarNome = z.infer<typeof MudarNomeSchema>;
 
 export const ReqDeleteSchema = z.object({
-    id: z.string(),
+    id: z.number(),
     token: z.string()
 });
 

@@ -8,7 +8,7 @@ datasource db {
 }
 
 model User {
-  id        String      @id @default(uuid())
+  id        Int         @id @default(autoincrement())
   nome      String
   email     String      @unique
   senha     String
@@ -18,34 +18,34 @@ model User {
 }
 
 model Dashboard {
-  id       String    @id @default(uuid())
+  id       Int       @id @default(autoincrement())
   nome     String
   user     User      @relation(fields: [id_user], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  id_user  String
+  id_user  Int
   graficos Grafico[]
 
   @@map("dashboards")
 }
 
 model Grafico {
-  id          String       @id @default(uuid())
+  id          Int          @id @default(autoincrement())
   tipo        String
   nome        String
   ordem       String
   dashboard   Dashboard    @relation(fields: [id_dash], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  id_dash     String
+  id_dash     Int
   referencias Referencia[]
 
   @@map("graficos")
 }
 
 model Referencia {
-  id        String  @id @default(uuid())
+  id        Int     @id @default(autoincrement())
   nome      String
   valor     Int
   cor       String
   Grafico   Grafico @relation(fields: [graficoId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  graficoId String
+  graficoId Int
 
   @@map("referencias")
 }

@@ -1,18 +1,18 @@
 import z from "zod";
 
 export const ReqGetSchema = z.object({
-    dashID: z.string(),
+    dashID: z.number(),
     token: z.string()
 });
 
 export type ReqGet = z.infer<typeof ReqGetSchema>;
 
 export const GraficoSchema = z.object({
-    id: z.string(),
+    id: z.number(),
     tipo: z.string(),
     elementos: z.string().array(),
     dados: z.number().array(),
-    id_dash: z.string(),
+    id_dash: z.number(),
     nome: z.string(),
     cores: z.string().array(),
     ordem: z.string()
@@ -27,14 +27,14 @@ export const ReqNewGraphSchema = z.object({
     elementos: z.string().array(),
     dados: z.number().array(),
     cores: z.string().array(),
-    dashId: z.string(),
+    dashId: z.number(),
     token: z.string()
 });
 
 export type ReqNewGraph = z.infer<typeof ReqNewGraphSchema>;
 
 export const DeleteGraphSchema = z.object({
-    id: z.string(),
+    id: z.number(),
     token: z.string()
 });
 
