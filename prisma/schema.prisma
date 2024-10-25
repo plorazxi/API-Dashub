@@ -20,8 +20,8 @@ model User {
 model Dashboard {
   id       String    @id @default(uuid())
   nome     String
-  user     User      @relation(fields: [userid], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userid   String
+  user     User      @relation(fields: [id_user], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  id_user  String
   graficos Grafico[]
 
   @@map("dashboards")
@@ -32,8 +32,8 @@ model Grafico {
   tipo        String
   nome        String
   ordem       String
-  dashboard   Dashboard    @relation(fields: [dashboardId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  dashboardId  String
+  dashboard   Dashboard    @relation(fields: [id_dash], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  id_dash     String
   referencias Referencia[]
 
   @@map("graficos")

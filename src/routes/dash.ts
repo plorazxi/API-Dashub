@@ -21,8 +21,11 @@ router.get('/:token', async (req, res) => {
     let user = user_tokenSchema.parse(ver_token);
     let dashboards = await prisma.dashboard.findMany({
         where: {
-            userid: user.id
+            id_user: user.id
         },
+        include: {
+            graficos: true
+        }
     });
     res.send(dashboards);
 });
@@ -48,7 +51,8 @@ router.post('/create', async (req, res) => {
     await prisma.dashboard.create({
         data: {
             nome: request.nome,
-            userid: user.id,
+            id_user: user.id
+
         }
     });
     res.send({msg: "Dashboard criado com sucesso"});

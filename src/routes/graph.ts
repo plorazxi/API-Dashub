@@ -7,7 +7,7 @@ import { ENV } from "../env";
 const router = express.Router();
 const prisma = new PrismaClient;
 
-router.get('/', async (req, res) => {
+router.post('/', async (req, res) => {
     let request: ReqGet;
     try {
         request = ReqGetSchema.parse(req.body);
@@ -27,7 +27,7 @@ router.get('/', async (req, res) => {
     let response!: grafico[];
     let graphics = await prisma.grafico.findMany({
         where: {
-            dashboardId: request.dashID
+            id_dash: request.dashID
         }
     });
     graphics.map(async (value) => {
@@ -36,10 +36,10 @@ router.get('/', async (req, res) => {
                 graficoId: value.id
             }
         });
-        let atributos = ref.map((obj) => {
+        let elementos = ref.map((obj) => {
             return obj.nome;
         });
-        let valores = ref.map((obj) => {
+        let dados = ref.map((obj) => {
             return obj.valor;
         });
         let cores = ref.map((obj) => {
@@ -50,9 +50,10 @@ router.get('/', async (req, res) => {
             nome: value.nome,
             tipo: value.tipo,
             ordem: value.ordem,
-            atributos: atributos,
-            valores: valores,
-            cores: cores
+            elementos: elementos,
+            dados: dados,
+            cores: cores,
+            id_dash: request.dashID
         };
         response.push(graph);
     });
@@ -81,14 +82,14 @@ router.post('/create', async (req, res) => {
             nome: request.nome,
             ordem: request.ordem,
             tipo: request.tipo,
-            dashboardId: request.dashId
+            id_dash: request.dashId
         }
     });
-    for(let i=0; i<request.valores.length; i++) {
+    for(let i=0; i<request.dados.length; i++) {
         await prisma.referencia.create({
             data: {
                 nome: request.nome[i],
-                valor: request.valores[i],
+                valor: request.dados[i],
                 cor: request.cores[i],
                 graficoId: graph.id
             }
