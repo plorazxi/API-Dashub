@@ -6,7 +6,7 @@
     "dev": "tsx watch --env-file=.env src/main.ts",
     "do-migration": "npx prisma migrate dev",
     "studio": "npx prisma studio",
-    "migrate": "npx prisma migrate deploy",
+    "migrate": "npx prisma migrate deploy && npx prisma generate",
     "build": "tsc",
     "start": "node build/main.js"
   },
