@@ -62,9 +62,12 @@ router.post('/', async (req, res) => {
 
 router.post('/create', async (req, res) => {
     let request: ReqNewGraph;
+    console.log(req.body)
     try {
         request = ReqNewGraphSchema.parse(req.body);
+        console.log(req.body)
     } catch(e) {
+        console.log(e);
         res.status(400).send({msg: "Requisição mal feita"});
         return ;
     }
@@ -89,7 +92,7 @@ router.post('/create', async (req, res) => {
         await prisma.referencia.create({
             data: {
                 nome: request.nome[i],
-                valor: request.dados[i],
+                valor: Number(request.dados[i]),
                 cor: request.cores[i],
                 graficoId: graph.id
             }

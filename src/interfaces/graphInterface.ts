@@ -25,7 +25,7 @@ export const ReqNewGraphSchema = z.object({
     tipo: z.string(),
     ordem: z.string(),
     elementos: z.string().array(),
-    dados: z.number().array(),
+    dados: z.string().array(), // vai ser transformado em number
     cores: z.string().array(),
     dashId: z.number(),
     token: z.string()
