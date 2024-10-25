@@ -24,13 +24,12 @@ router.post('/', async (req, res) => {
     if(ver_token === null) {
         return ;
     }
-    let response!: grafico[];
     let graphics = await prisma.grafico.findMany({
         where: {
             id_dash: request.dashId
         }
     });
-    graphics.map(async (value) => {
+    let promecas = graphics.map(async (value) => {
         let ref = await prisma.referencia.findMany({
             where: {
                 graficoId: value.id
@@ -55,8 +54,9 @@ router.post('/', async (req, res) => {
             cores: cores,
             id_dash: request.dashId
         };
-        response.push(graph);
+        return graph;
     });
+    let response = await Promise.all(promecas);
     res.send(response);
 });
 
