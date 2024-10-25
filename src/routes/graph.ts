@@ -89,7 +89,7 @@ router.post('/create', async (req, res) => {
     for(let i=0; i<request.dados.length; i++) {
         await prisma.referencia.create({
             data: {
-                nome: request.nome[i],
+                nome: request.elementos[i],
                 valor: Number(request.dados[i]),
                 cor: request.cores[i],
                 graficoId: graph.id
