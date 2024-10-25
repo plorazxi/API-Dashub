@@ -3,8 +3,8 @@ POST http://localhost:3000/graph/
 Content-Type: application/json
 
 {
-    "dashId": "e3df52fa-4eac-4934-9141-113eea02247c",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE4N2UxZGNiLWI1MTEtNGRhZS04Yjg3LTY0Y2JjYzJiNjNkMCIsIm5vbWUiOiJwYXVsaW5obyIsImVtYWlsIjoicGF1bG8uc3MubG9yYXNjaGlAZ21haWwuY29tIiwic2VuaGEiOiIkMmIkMTAkS0IxYUVYWWVIL2dPZldtL1FHajlzT3N4Wi8yU2haY1VTU00wNVlNSG5QWFdQc3puVEU5b3EiLCJpYXQiOjE3Mjk3Mjc0ODl9.urwI7iawrM8_VXmluXZUar6kFIVFN7kA2A3WneQJGfg"
+    "dashId": 26,
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwibm9tZSI6InBhdWxvIiwiZW1haWwiOiJwYXVsby5zcy5sb3Jhc2NoaUBnbWFpbC5jb20iLCJzZW5oYSI6IiQyYiQxMyR6V29ma1AvaURGLkdYODhOdFEvQndlSkV6Yi9uSGVDTi5BY1hLUVJQM21WUTd1Qi5wUFNuTyIsImlhdCI6MTcyOTg1MjgzOCwiZXhwIjoxNzI5ODU2NDM4fQ.rXAoGgiDMaP39KdplH0YPp6vEC_2kksD0Q-wBT5D6wA"
 }
 
 ### Rota de create graph
@@ -18,7 +18,7 @@ Content-Type: application/json
     "elementos": ["casc"],
     "dados": ["1"],
     "cores": ["scacs"],
-    "dashId": "1234",
+    "dashId": 26,
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE4N2UxZGNiLWI1MTEtNGRhZS04Yjg3LTY0Y2JjYzJiNjNkMCIsIm5vbWUiOiJwYXVsaW5obyIsImVtYWlsIjoicGF1bG8uc3MubG9yYXNjaGlAZ21haWwuY29tIiwic2VuaGEiOiIkMmIkMTAkS0IxYUVYWWVIL2dPZldtL1FHajlzT3N4Wi8yU2haY1VTU00wNVlNSG5QWFdQc3puVEU5b3EiLCJpYXQiOjE3Mjk3Mjc0ODl9.urwI7iawrM8_VXmluXZUar6kFIVFN7kA2A3WneQJGfg"
 }
 
@@ -27,6 +27,6 @@ DELETE http://localhost:3000/graph/delete
 Content-Type: application/json
 
 {
-    "id": "",
+    "id": 26,
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE4N2UxZGNiLWI1MTEtNGRhZS04Yjg3LTY0Y2JjYzJiNjNkMCIsIm5vbWUiOiJwYXVsaW5obyIsImVtYWlsIjoicGF1bG8uc3MubG9yYXNjaGlAZ21haWwuY29tIiwic2VuaGEiOiIkMmIkMTAkS0IxYUVYWWVIL2dPZldtL1FHajlzT3N4Wi8yU2haY1VTU00wNVlNSG5QWFdQc3puVEU5b3EiLCJpYXQiOjE3Mjk3Mjc0ODl9.urwI7iawrM8_VXmluXZUar6kFIVFN7kA2A3WneQJGfg"
 }
