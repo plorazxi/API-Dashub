@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
     let response!: grafico[];
     let graphics = await prisma.grafico.findMany({
         where: {
-            id_dash: request.dashID
+            id_dash: request.dashId
         }
     });
     graphics.map(async (value) => {
@@ -53,7 +53,7 @@ router.post('/', async (req, res) => {
             elementos: elementos,
             dados: dados,
             cores: cores,
-            id_dash: request.dashID
+            id_dash: request.dashId
         };
         response.push(graph);
     });
@@ -62,10 +62,8 @@ router.post('/', async (req, res) => {
 
 router.post('/create', async (req, res) => {
     let request: ReqNewGraph;
-    console.log(req.body)
     try {
         request = ReqNewGraphSchema.parse(req.body);
-        console.log(req.body)
     } catch(e) {
         console.log(e);
         res.status(400).send({msg: "Requisição mal feita"});

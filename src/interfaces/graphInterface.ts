@@ -1,7 +1,7 @@
 import z from "zod";
 
 export const ReqGetSchema = z.object({
-    dashID: z.number(),
+    dashId: z.number(),
     token: z.string()
 });
 
