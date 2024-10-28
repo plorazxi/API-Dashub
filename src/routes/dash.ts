@@ -8,6 +8,7 @@ const router = express.Router();
 const prisma = new PrismaClient;
 
 router.get('/:token', async (req, res) => {
+    //pegando e verificando o token 
     const token: string = req.params.token;
     let ver_token: object | null | void = verify(token, ENV.SECRETKEY, (err, decoded) => {
         if (err) {
@@ -18,7 +19,9 @@ router.get('/:token', async (req, res) => {
     if(ver_token === null) {
         return ;
     }
+    //transformando o payload em usuário
     let user = user_tokenSchema.parse(ver_token);
+    //pegando todos os dashboards do usuário
     let dashboards = await prisma.dashboard.findMany({
         where: {
             id_user: user.id
@@ -31,6 +34,7 @@ router.get('/:token', async (req, res) => {
 });
 
 router.post('/create', async (req, res) => {
+    //pegando e tipando o corpo da requisição
     let request: ReqNewDash;
     try {
         request = ReqNewDashSchema.parse(req.body);
@@ -38,6 +42,7 @@ router.post('/create', async (req, res) => {
         res.status(400).send({msg: "Requisição mal feita"});
         return ;
     }
+    //verificando o token e transformando-o em user
     let ver_token: object | null | void = verify(request.token, ENV.SECRETKEY, (err, decoded) => {
         if (err) {
             res.status(401).send({ msg: "token inválido" });
@@ -48,6 +53,7 @@ router.post('/create', async (req, res) => {
         return ;
     }
     let user = user_tokenSchema.parse(ver_token);
+    //criando o dashbard do usuário
     await prisma.dashboard.create({
         data: {
             nome: request.nome,
@@ -59,6 +65,7 @@ router.post('/create', async (req, res) => {
 });
 
 router.put('/mudar-nome', async (req, res) => {
+    //pegando e tipando o corpo da requisição
     let request: MudarNome;
     try {
         request = MudarNomeSchema.parse(req.body);
@@ -66,6 +73,7 @@ router.put('/mudar-nome', async (req, res) => {
         res.status(400).send({msg: "Requisição mal feita"});
         return ;
     }
+    //verificando token
     let ver_token: object | null | void = verify(request.token, ENV.SECRETKEY, (err, decoded) => {
         if (err) {
             res.status(401).send({ msg: "token inválido" });
@@ -75,6 +83,7 @@ router.put('/mudar-nome', async (req, res) => {
     if(ver_token === null) {
         return ;
     }
+    //alterando o nome no banco de dados
     await prisma.dashboard.update({
         where: {
             id: request.id
@@ -87,6 +96,7 @@ router.put('/mudar-nome', async (req, res) => {
 });
 
 router.delete('/delete', async (req, res) => {
+    //pegando e tipando o corpo da requisição
     let request: ReqDelete;
     try {
         request = ReqDeleteSchema.parse(req.body);
@@ -94,6 +104,7 @@ router.delete('/delete', async (req, res) => {
         res.status(400).send({msg: "Requisição mal feita"});
         return ;
     }
+    //validando o token
     let ver_token: object | null | void = verify(request.token, ENV.SECRETKEY, (err, decoded) => {
         if (err) {
             res.status(401).send({ msg: "token inválido" });
@@ -103,6 +114,7 @@ router.delete('/delete', async (req, res) => {
     if(ver_token === null) {
         return ;
     }
+    //deletando o dashboard no banco de dados
     await prisma.dashboard.delete({
         where: {
             id: request.id

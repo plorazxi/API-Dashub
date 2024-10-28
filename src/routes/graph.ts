@@ -8,6 +8,7 @@ const router = express.Router();
 const prisma = new PrismaClient;
 
 router.post('/', async (req, res) => {
+    //pegando e tipando o corpo da requisição
     let request: ReqGet;
     try {
         request = ReqGetSchema.parse(req.body);
@@ -15,6 +16,7 @@ router.post('/', async (req, res) => {
         res.status(400).send({msg: "Requisição mal feita"});
         return ;
     }
+    //validando token
     let ver_token: object | null | void = verify(request.token, ENV.SECRETKEY, (err, decoded) => {
         if (err) {
             res.status(401).send({ msg: "token inválido" });
@@ -24,11 +26,13 @@ router.post('/', async (req, res) => {
     if(ver_token === null) {
         return ;
     }
+    //pegando os graficos pelo ID do dashboard
     let graphics = await prisma.grafico.findMany({
         where: {
             id_dash: request.dashId
         }
     });
+    //criando as listas de referencias dentro de cada grafico do dashboard
     let promecas = graphics.map(async (value) => {
         let ref = await prisma.referencia.findMany({
             where: {
@@ -56,11 +60,13 @@ router.post('/', async (req, res) => {
         };
         return graph;
     });
+    //espreando a promisse e enviando-a
     let response = await Promise.all(promecas);
     res.send(response);
 });
 
 router.post('/create', async (req, res) => {
+    //pegando e tipando o corpo da requisição
     let request: ReqNewGraph;
     try {
         request = ReqNewGraphSchema.parse(req.body);
@@ -69,6 +75,7 @@ router.post('/create', async (req, res) => {
         res.status(400).send({msg: "Requisição mal feita"});
         return ;
     }
+    //verificando o token
     let ver_token: object | null | void = verify(request.token, ENV.SECRETKEY, (err, decoded) => {
         if (err) {
             res.status(401).send({ msg: "token inválido" });
@@ -78,6 +85,7 @@ router.post('/create', async (req, res) => {
     if(ver_token === null) {
         return ;
     }
+    //criando o grafico no banco de dados
     let graph = await prisma.grafico.create({
         data: {
             nome: request.nome,
@@ -86,6 +94,7 @@ router.post('/create', async (req, res) => {
             id_dash: request.dashId
         }
     });
+    //criando cada linha de referencia no banco de dados
     for(let i=0; i<request.dados.length; i++) {
         await prisma.referencia.create({
             data: {
@@ -100,6 +109,7 @@ router.post('/create', async (req, res) => {
 });
 
 router.delete('/delete', async (req, res) => {
+    //pegando e tipando o corpo da requisição
     let request: DeleteGraph;
     try {
         request = DeleteGraphSchema.parse(req.body);
@@ -107,6 +117,7 @@ router.delete('/delete', async (req, res) => {
         res.status(400).send({msg: "Requisição mal feita"});
         return ;
     }
+    //verificando o token
     let ver_token: object | null | void = verify(request.token, ENV.SECRETKEY, (err, decoded) => {
         if (err) {
             res.status(401).send({ msg: "token inválido" });
@@ -116,6 +127,7 @@ router.delete('/delete', async (req, res) => {
     if(ver_token === null) {
         return ;
     }
+    //deletando o grafico e enviando o response
     await prisma.grafico.delete({
         where: {
             id: request.id

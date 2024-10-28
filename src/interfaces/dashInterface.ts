@@ -1,5 +1,6 @@
 import z from "zod";
 
+//Schema do payload do token
 export const user_tokenSchema = z.object({
     id: z.number(),
     email: z.string().email(),
@@ -7,6 +8,7 @@ export const user_tokenSchema = z.object({
     senha: z.string()
 });
 
+//Schema da requisição de criar um novo dashboard, o corpo da requisição
 export const ReqNewDashSchema = z.object({
     nome: z.string(),
     token: z.string()
@@ -14,6 +16,7 @@ export const ReqNewDashSchema = z.object({
 
 export type ReqNewDash = z.infer<typeof ReqNewDashSchema>;
 
+//Schema da requisição de mudar o nome do dashboard, o corpo da requisição
 export const MudarNomeSchema = z.object({
     id: z.number(),
     novo_nome: z.string(),
@@ -22,6 +25,7 @@ export const MudarNomeSchema = z.object({
 
 export type MudarNome = z.infer<typeof MudarNomeSchema>;
 
+//Schema da requisição de deletar o dashboard, o corpo da requisição
 export const ReqDeleteSchema = z.object({
     id: z.number(),
     token: z.string()

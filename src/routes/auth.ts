@@ -10,7 +10,9 @@ const router = express.Router();
 const prisma = new PrismaClient;
 
 router.post('/register', async (req, res) => {
+    //pegando as informações necessárias para criar usuário
     const { nome, email, senha } = req.body;
+    //verificando se o email não está sendo utilizado
     let val_email = await prisma.user.findUnique({
         where: {
             email: email
@@ -20,6 +22,7 @@ router.post('/register', async (req, res) => {
         res.status(401).send({msg: "email sendo utilizado"});
         return ;
     }
+    //criando objeto NewUser e colocando no banco de dados
     let user: NewUser = {
         nome: nome,
         email: email, 
@@ -28,6 +31,7 @@ router.post('/register', async (req, res) => {
     const userDB = await prisma.user.create({
         data: user
     });
+    //criando o token e enviando response
     let jwt = sign(userDB, ENV.SECRETKEY, {
         algorithm: "HS256",
         expiresIn: '1h'
@@ -41,6 +45,7 @@ router.post('/register', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
+    //pegando o corpo da requisição e validando os tipos de dados
     let requisicao: login;
     try {
         requisicao = loginSchema.parse(req.body);
@@ -48,6 +53,7 @@ router.post('/login', async (req, res) => {
         res.status(400).send({msg: "requisição mal feita"});
         return ;
     }
+    //procurando o usuário pelo email
     let user = await prisma.user.findUnique({
         where: {
             email: requisicao.email
@@ -57,7 +63,8 @@ router.post('/login', async (req, res) => {
         res.status(404).send({ msg: "Usuário não encontrado" });
         return ;
     }
-    if(await compare(requisicao.senha, user.senha)) {
+    //comparando a senha
+    if(await compare(requisicao.senha, user.senha)) { //se certa, retorna o token
         let token = sign(user, ENV.SECRETKEY, {
             algorithm: 'HS256',
             expiresIn: '1h'
@@ -68,12 +75,13 @@ router.post('/login', async (req, res) => {
             email: user.email,
             token: token
         });
-    } else {
+    } else { //se errado, envia uma mensagem de erro
         res.status(401).send({msg: "Senha incorreta"});
     }
 });
 
 router.put('/esqueci-senha', async (req, res) => {
+    //pegando e validando o corpo da requisição
     let requisicao: login;
     try {
         requisicao = loginSchema.parse(req.body);
@@ -81,6 +89,7 @@ router.put('/esqueci-senha', async (req, res) => {
         res.status(400).send({msg: "requisição mal feita"});
         return ;
     }
+    //fazendo a alteração da senha e enviando response
     await prisma.user.update({
         where: {
             email: requisicao.email
@@ -93,6 +102,7 @@ router.put('/esqueci-senha', async (req, res) => {
 });
 
 router.put('/mudar-nome', async (req, res) => {
+    //pegando e verificando os tipos da requisição 
     let requisicao: NovoNome;
     try{
         requisicao = NovoNomeSchema.parse(req.body);
@@ -100,6 +110,7 @@ router.put('/mudar-nome', async (req, res) => {
         res.status(400).send({msg: "requisição mal feita"});
         return ;
     }
+    //procurando e validando o usuário no banco de dados
     let user = await prisma.user.findUnique({
         where: {
             email: requisicao.email
@@ -109,6 +120,7 @@ router.put('/mudar-nome', async (req, res) => {
         res.status(404).send({msg: "usuario não encontrado"});
         return ;
     }
+    //comparando a senha e fazendo a alteração do nome
     if(await compare(requisicao.senha, user.senha)) {
         await prisma.user.update({
             where: {
@@ -127,6 +139,7 @@ router.put('/mudar-nome', async (req, res) => {
 });
 
 router.put('/mudar-email', async (req, res) => {
+    //pegando e verificando o corpo da requisição
     let requisicao: NovoEmail;
     try{
         requisicao = NovoEmailSchema.parse(req.body);
@@ -134,6 +147,7 @@ router.put('/mudar-email', async (req, res) => {
         res.status(400).send({msg: "requisição mal feita"});
         return ;
     }
+    //pegando o usuário do banco de dados
     let user = await prisma.user.findUnique({
         where: {
             email: requisicao.email
@@ -143,6 +157,7 @@ router.put('/mudar-email', async (req, res) => {
         res.status(404).send({msg: "usuario não encontrado"});
         return ;
     }
+    //comparando a sennha e realizando a alteração
     if(await compare(requisicao.senha, user.senha)) {
         await prisma.user.update({
             where: {
