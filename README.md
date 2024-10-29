@@ -46,7 +46,7 @@ Outra coisa que foi utilizada, porém já tinha conhecimento, foi as bibliotecas
 #### Registro de usuário
 
 ```http
-  POST /auth/register
+  POST http://BASE_URL/auth/register
 ```
 
 | Parâmetro   | Tipo       | Descrição                           |
@@ -58,7 +58,7 @@ Outra coisa que foi utilizada, porém já tinha conhecimento, foi as bibliotecas
 #### Login do usuário
 
 ```http
-  POST /auth/login
+  POST http://BASE_URL/auth/login
 ```
 
 | Parâmetro   | Tipo       | Descrição                  |
@@ -69,7 +69,7 @@ Outra coisa que foi utilizada, porém já tinha conhecimento, foi as bibliotecas
 #### Esqueci minha senha
 
 ```http
-  PUT auth/esqueci-senha
+  PUT http://BASE_URL/auth/esqueci-senha
 ```
 
 | Parâmetro   | Tipo       | Descrição  |
@@ -80,7 +80,7 @@ Outra coisa que foi utilizada, porém já tinha conhecimento, foi as bibliotecas
 #### Mudar nome
 
 ```http
-  PUT /auth/mudar-nome
+  PUT http://BASE_URL/auth/mudar-nome
 ```
 
 | Parâmetro   | Tipo       | Descrição  |
@@ -93,7 +93,7 @@ Outra coisa que foi utilizada, porém já tinha conhecimento, foi as bibliotecas
 #### Mudar email
 
 ```http
-  PUT /auth/mudar-email
+  PUT http://BASE_URL/auth/mudar-email
 ```
 
 | Parâmetro   | Tipo       | Descrição  |
@@ -107,7 +107,7 @@ Outra coisa que foi utilizada, porém já tinha conhecimento, foi as bibliotecas
 #### Pegar os dashboards do usuário
 
 ```http
-  GET /dash/${token}
+  GET http://BASE_URL/dash/${token}
 ```
 
 | Parâmetro   | Tipo       | Descrição  |
@@ -117,7 +117,7 @@ Outra coisa que foi utilizada, porém já tinha conhecimento, foi as bibliotecas
 #### Criar dashboard
 
 ```http
-  POST /dash/create
+  POST http://BASE_URL/dash/create
 ```
 
 | Parâmetro   | Tipo       | Descrição  |
@@ -128,7 +128,7 @@ Outra coisa que foi utilizada, porém já tinha conhecimento, foi as bibliotecas
 #### Alterar o nome do dashboard
 
 ```http
-  PUT /dash/mudar-nome
+  PUT http://BASE_URL/dash/mudar-nome
 ```
 
 | Parâmetro   | Tipo       | Descrição  |
@@ -140,7 +140,7 @@ Outra coisa que foi utilizada, porém já tinha conhecimento, foi as bibliotecas
 #### Deletar o dashboard
 
 ```http
-  DELETE /dash/delete
+  DELETE http://BASE_URL/dash/delete
 ```
 
 | Parâmetro   | Tipo       | Descrição  |
@@ -153,7 +153,7 @@ Outra coisa que foi utilizada, porém já tinha conhecimento, foi as bibliotecas
 #### Pegar os graficos do dashboard
 
 ```http
-  POST /graph/
+  POST http://BASE_URL/graph/
 ```
 
 | Parâmetro   | Tipo       | Descrição  |
@@ -164,7 +164,7 @@ Outra coisa que foi utilizada, porém já tinha conhecimento, foi as bibliotecas
 #### Criar um grafico
 
 ```http
-  POST /graph/create
+  POST http://BASE_URL/graph/create
 ```
 
 | Parâmetro   | Tipo       | Descrição  |
@@ -181,7 +181,7 @@ Outra coisa que foi utilizada, porém já tinha conhecimento, foi as bibliotecas
 #### Deletar um grafico
 
 ```http
-  DELETE /graph/delete
+  DELETE http://BASE_URL/graph/delete
 ```
 
 | Parâmetro   | Tipo       | Descrição  |
