@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import express from "express"
-import { DeleteGraph, DeleteGraphSchema, grafico, ReqGet, ReqGetSchema, ReqNewGraph, ReqNewGraphSchema } from "../interfaces/graphInterface";
+import { DeleteGraph, DeleteGraphSchema, grafico, ReqGet, ReqGetSchema, ReqNewGraph, ReqNewGraphSchema, TypeValor, TypeObj } from "../interfaces/graphInterface";
 import { verify } from "jsonwebtoken";
 import { ENV } from "../env";
 
@@ -33,19 +33,19 @@ router.post('/', async (req, res) => {
         }
     });
     //criando as listas de referencias dentro de cada grafico do dashboard
-    let promecas = graphics.map(async (value) => {
+    let promecas = graphics.map(async (value: TypeValor) => {
         let ref = await prisma.referencia.findMany({
             where: {
                 graficoId: value.id
             }
         });
-        let elementos = ref.map((obj) => {
+        let elementos = ref.map((obj: TypeObj) => {
             return obj.nome;
         });
-        let dados = ref.map((obj) => {
+        let dados = ref.map((obj: TypeObj) => {
             return obj.valor;
         });
-        let cores = ref.map((obj) => {
+        let cores = ref.map((obj: TypeObj) => {
             return obj.cor;
         });
         let graph: grafico = {

@@ -8,6 +8,26 @@ export const ReqGetSchema = z.object({
 
 export type ReqGet = z.infer<typeof ReqGetSchema>;
 
+export const valor = z.object({
+    id: z.number(),
+    tipo: z.string(),
+    nome: z.string(),
+    ordem: z.string(),
+    id_dash: z.number()
+})
+
+export type TypeValor = z.infer<typeof valor>
+
+export const obj = z.object({
+    id: z.number(),
+    nome: z.string(),
+    valor: z.number(),
+    cor: z.string(),
+    graficoId: z.number()
+})
+
+export type TypeObj = z.infer<typeof obj>
+
 //Schema dos graficos que serão enviados para o front-end
 export const GraficoSchema = z.object({
     id: z.number(),
