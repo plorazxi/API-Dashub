@@ -1,4 +1,5 @@
 import { z } from "zod";
+require('dotenv').config()
 
 //configurando as chaves dentro do arquivo '.env'
 const envSchema = z.object({
