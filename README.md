@@ -199,6 +199,16 @@ Segue o link do site: https://dashbub.netlify.app
     
 ## Rodando localmente
 
+### Via container
+
+Basta correr a imagem que está no Docker-hub
+
+```bash
+  docker run plorazxi/ai-dashub
+```
+
+### Via clonagem do código
+
 Clone o projeto
 
 ```bash
