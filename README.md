@@ -204,7 +204,7 @@ Segue o link do site: https://dashbub.netlify.app
 Basta correr a imagem que está no Docker-hub
 
 ```bash
-  docker run plorazxi/ai-dashub
+  docker run plorazxi/api-dashub
 ```
 
 ### Via clonagem do código
